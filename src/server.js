@@ -18,6 +18,6 @@ const { notFound, catchAll } = require('./middlewares/Global');
 app.use(notFound);
 app.use(catchAll);
 
-app.listen(3333, () => {
-    console.log(`Server is running on port 3333`);
+app.listen(process.env.PORT || 3333, () => {
+    console.log(`Server is running`);
 });
