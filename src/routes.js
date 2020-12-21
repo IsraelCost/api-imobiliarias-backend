@@ -5,6 +5,7 @@ const ImobiliariasController = require('./controllers/ImobiliariaController');
 const ImoveisController = require('./controllers/ImovelController');
 const AdministradoresController = require('./controllers/AdministratorController');
 const CondominioController = require('./controllers/CondominioController');
+const Imagens_ImovelController = require('./controllers/Imagens_ImovelController');
 
 const authMiddleware = require('./middlewares/auth');
 
@@ -41,6 +42,10 @@ routes.post('/condominios/:chave_condominio/imoveis', ImoveisController.create);
 routes.put('/condominios/:chave_condominio/imoveis/:id', ImoveisController.update);
 routes.delete('/condominios/:chave_condominio/imoveis/:id', ImoveisController.delete);
 
-
+// Imagens dos imóveis
+routes.get('/condominios/:chave_condominio/imoveis/:id_imovel/imagens', Imagens_ImovelController.index);
+routes.post('/condominios/:chave_condominio/imoveis/:id_imovel/imagens', Imagens_ImovelController.create);
+routes.put('/condominios/:chave_condominio/imoveis/:id_imovel/imagens/:id', Imagens_ImovelController.update);
+routes.delete('/condominios/:chave_condominio/imoveis/:id_imovel/imagens/:id', Imagens_ImovelController.delete);
 
 module.exports = routes;
