@@ -1,8 +1,10 @@
+require('dotenv').config('../../.env');
+
 module.exports = {
     dialect: 'mysql',
-    host: 'localhost',
-    username: 'root',
-    password: '100704',
+    host: process.env.HOSTDATABASE,
+    username: process.env.USERNAMEDATABASE,
+    password: process.env.PASSWORDDATABASE,
     database: 'api_imobiliarias',
     define: {
         timestamps: true,

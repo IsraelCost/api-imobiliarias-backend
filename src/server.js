@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config('../.env');
 
 const express = require('express');
 const routes = require('./routes');
@@ -18,6 +18,8 @@ const { notFound, catchAll } = require('./middlewares/Global');
 app.use(notFound);
 app.use(catchAll);
 
-app.listen(process.env.PORT || 3333, () => {
+const port = process.env.PORT || 3333;
+
+app.listen(port, () => {
     console.log(`Server is running`);
 });
