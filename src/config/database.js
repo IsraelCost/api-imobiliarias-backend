@@ -5,7 +5,7 @@ module.exports = {
     host: process.env.HOSTDATABASE,
     username: process.env.USERNAMEDATABASE,
     password: process.env.PASSWORDDATABASE,
-    database: 'api-imobiliarias',
+    database: 'api_imobiliarias',
     define: {
         timestamps: true,
         underscored: true
