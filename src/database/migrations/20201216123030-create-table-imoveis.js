@@ -36,9 +36,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      url_galeria_imovel: {
+      url_baixar_galeria_imovel: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      url_compartilhar_galeria_imovel: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       url_vt360_imovel: {
         type: Sequelize.STRING,

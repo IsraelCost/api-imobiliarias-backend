@@ -13,7 +13,6 @@ const authMiddleware = require('./middlewares/auth');
 routes.get('/administradores', AdministradoresController.index);
 routes.post('/administradores', AdministradoresController.create);
 routes.post('/administradores/authenticate', AdministradoresController.auth);
-routes.put('/administradores/:id', AdministradoresController.update);
 routes.delete('/administradores/:id', AdministradoresController.delete);
 
 routes.use(authMiddleware);

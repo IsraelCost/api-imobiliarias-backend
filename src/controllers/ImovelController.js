@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const Imovel = require("../models/Imovel");
 const Condominio = require("../models/Condominio");
 
@@ -39,7 +38,8 @@ module.exports = {
         area_imovel: req.body.area_imovel,
         valor_imovel: req.body.valor_imovel,
         url_thumb_imovel: req.body.url_thumb_imovel,
-        url_galeria_imovel: req.body.url_galeria_imovel,
+        url_baixar_galeria_imovel: req.body.url_galeria_imovel,
+        url_compartilhar_galeria_imovel: req.body.url_compartilhar_galeria_imovel,
         url_vt360_imovel: req.body.url_vt360_imovel,
         onclick_function_imovel_location:
           req.body.onclick_function_imovel_location,
@@ -82,7 +82,8 @@ module.exports = {
           area_imovel: req.body.area_imovel,
           valor_imovel: req.body.valor_imovel,
           url_thumb_imovel: req.body.url_thumb_imovel,
-          url_galeria_imovel: req.body.url_galeria_imovel,
+          url_baixar_galeria_imovel: req.body.url_galeria_imovel,
+          url_compartilhar_galeria_imovel: req.body.url_compartilhar_galeria_imovel,
           url_vt360_imovel: req.body.url_vt360_imovel,
           onclick_function_imovel_location:
             req.body.onclick_function_imovel_location,

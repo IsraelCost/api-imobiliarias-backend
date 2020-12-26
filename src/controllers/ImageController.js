@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const Imagem = require("../models/Imagem");
 const Condominio = require("../models/Condominio");
 

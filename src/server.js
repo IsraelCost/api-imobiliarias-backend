@@ -18,7 +18,7 @@ const { notFound, catchAll } = require('./middlewares/Global');
 app.use(notFound);
 app.use(catchAll);
 
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
 
 app.listen(port, host, () => {

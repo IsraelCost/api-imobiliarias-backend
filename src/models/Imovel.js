@@ -14,7 +14,7 @@ class Imoveis extends Model {
             nomes_lotes_for_hotspots: DataTypes.STRING,
         }, {
             sequelize,
-            freezeTableName: true
+            tableName: 'imoveis'
         });
     }
 

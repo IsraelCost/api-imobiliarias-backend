@@ -6,7 +6,7 @@ class Images extends Model {
             url_image: DataTypes.STRING,
         }, {
             sequelize,
-            freezeTableName: false
+            tableName: 'imagens'
         })
     }
 

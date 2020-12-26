@@ -1,8 +1,6 @@
 const Imobiliaria = require("../models/Imobiliaria");
 const Condominio = require("../models/Condominio");
 
-const { Op } = require("sequelize");
-
 module.exports = {
   async index(req, res, next) {
     try {

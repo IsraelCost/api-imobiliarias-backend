@@ -14,7 +14,8 @@ class Imobiliarias extends Model {
             url_logo_menu_imobi: DataTypes.STRING,
             url_logo_marca_dagua_imobi: DataTypes.STRING,
         }, {
-            sequelize
+            sequelize,
+            tableName: 'imobiliarias'
         })
     }
 

@@ -9,7 +9,7 @@ class Administradores extends Model {
             password: DataTypes.STRING
         }, {
             sequelize,
-            freezeTableName: true,
+            tableName: 'administradores',
             hooks: {
                 async beforeSave(administrator) {
                     const hash = await bcrypt.hash(administrator.password, 10);

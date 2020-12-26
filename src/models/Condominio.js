@@ -6,7 +6,8 @@ class Condominio extends Model {
             nome_condominio: DataTypes.STRING,
             chave_condominio: DataTypes.STRING
         }, {
-            sequelize
+            sequelize,
+            tableName: 'condominios'
         })
     }
 
