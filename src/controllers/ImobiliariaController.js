@@ -30,7 +30,7 @@ module.exports = {
 
       const condominio = await Condominio.findOne({ where: { chave_condominio } });
 
-      if (!condominio || chave_condominio === 'default') {
+      if (!condominio) {
         const error = new Error("Make sure all parameters are correct");
         error.status = 400;
         throw error;
