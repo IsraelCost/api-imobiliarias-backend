@@ -22,6 +22,7 @@ class Imoveis extends Model {
     static associate(models) {
         this.belongsTo(models.Condominio, { foreignKey: 'chave_condominio', as: 'condominio' });
         this.hasMany(models.Imagens_Imovel, { foreignKey: 'id_imovel', as: 'imagens' });
+        this.belongsToMany(models.Imobiliarias, { foreignKey: 'imovel_id', through: 'imovel_imobiliarias', as: 'imobiliarias' });
     }
 }
 

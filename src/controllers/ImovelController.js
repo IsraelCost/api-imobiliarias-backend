@@ -6,10 +6,17 @@ module.exports = {
     try {
       const { chave_condominio } = req.params;
 
+      const { imovelId } = req.query;
+
       if (!await Condominio.findOne({ where: { chave_condominio } })) {
         const error = new Error("Make sure all parameters are correct");
         error.status = 400;
         throw error;
+      }
+
+      if (imovelId) {
+        const imovel = await Imovel.findByPk(imovelId, { include: { association: 'imobiliarias', through: { attributes: [] } } });
+        return res.json(imovel);
       }
 
       const imoveis = await Imovel.findAll({ where: { chave_condominio } });
@@ -38,7 +45,7 @@ module.exports = {
         area_imovel: req.body.area_imovel,
         valor_imovel: req.body.valor_imovel,
         url_thumb_imovel: req.body.url_thumb_imovel,
-        url_baixar_galeria_imovel: req.body.url_galeria_imovel,
+        url_baixar_galeria_imovel: req.body.url_baixar_galeria_imovel,
         url_compartilhar_galeria_imovel: req.body.url_compartilhar_galeria_imovel,
         url_vt360_imovel: req.body.url_vt360_imovel,
         onclick_function_imovel_location:
@@ -54,7 +61,17 @@ module.exports = {
         }
       }
 
-      await Imovel.create({ ...dataImovel, chave_condominio });
+      const imovel = await Imovel.create({ ...dataImovel, chave_condominio });
+      
+      const condominioId = await (await Condominio.findOne({ where: { chave_condominio } })).id;
+
+      const condominio = await Condominio.findByPk(condominioId, {
+          include: { association: 'imobiliarias', through: { attributes: [] } }
+      });
+
+      const imobiliarias = condominio.imobiliarias;
+
+      await imovel.addImobiliarias(imobiliarias);
 
       return res.status(201).send();
       
@@ -68,8 +85,9 @@ module.exports = {
         const { chave_condominio, id } = req.params;
 
         if (
-          !(await Condominio.findOne({ where: { chave_condominio } })) ||
-          chave_condominio === "default" || !await Imovel.findByPk(id)
+          !(await Condominio.findOne({ where: { chave_condominio } })) || 
+          chave_condominio === 'default' ||
+          !await Imovel.findByPk(id)
         ) {
           const error = new Error("Make sure all parameters are correct");
           error.status = 400;
@@ -82,7 +100,7 @@ module.exports = {
           area_imovel: req.body.area_imovel,
           valor_imovel: req.body.valor_imovel,
           url_thumb_imovel: req.body.url_thumb_imovel,
-          url_baixar_galeria_imovel: req.body.url_galeria_imovel,
+          url_baixar_galeria_imovel: req.body.url_baixar_galeria_imovel,
           url_compartilhar_galeria_imovel: req.body.url_compartilhar_galeria_imovel,
           url_vt360_imovel: req.body.url_vt360_imovel,
           onclick_function_imovel_location:
@@ -111,8 +129,9 @@ module.exports = {
         const { chave_condominio, id } = req.params;
 
         if (
-          !(await Condominio.findOne({ where: { chave_condominio } })) ||
-          chave_condominio === "default" || !await Imovel.findByPk(id)
+          !(await Condominio.findOne({ where: { chave_condominio } })) || 
+          chave_condominio === 'default' ||
+          !await Imovel.findByPk(id)
         ) {
           const error = new Error("Make sure all parameters are correct");
           error.status = 400;

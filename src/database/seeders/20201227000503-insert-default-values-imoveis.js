@@ -3,7 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('imoveis', [{
-       titulo_imovel: 'default',
+        chave_condominio: 'default',
+        titulo_imovel: 'default',
         qtd_dormitorios_imovel: 'default',
         area_imovel: 'default',
         valor_imovel: 'default',
