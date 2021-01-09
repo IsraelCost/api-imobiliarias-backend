@@ -1,11 +1,12 @@
 const Imobiliaria = require("../models/Imobiliaria");
+const Imovel = require('../models/Imovel');
 const Condominio = require("../models/Condominio");
 
 module.exports = {
-  async getAll(req, res, next) {
+  async getDefault(req, res, next) {
     try {
-      const imobiliarias = await Imobiliaria.findAll();
-      return res.json(imobiliarias);
+      const imobiliaria = await Imobiliaria.findAll({ where: { chave_imobi: 'default' } });
+      return res.json(imobiliaria);
     } catch (err) {
       next(err);
     }
@@ -79,6 +80,8 @@ module.exports = {
         }
       }
 
+      const imoveis = await Imovel.findAll({ where: { chave_condominio } });
+
       const [imobiliaria] = await Imobiliaria.findOrCreate({
         where: {
             chave_imobi
@@ -89,6 +92,10 @@ module.exports = {
       });
 
       await condominio.addImobiliarias(imobiliaria);
+
+      for (let imovel of imoveis) {
+        await imovel.addImobiliarias(imobiliaria);
+      }
 
       return res.status(201).send();
     } catch (err) {
@@ -172,6 +179,12 @@ module.exports = {
         console.log(imobiliaria)
 
         condominio.removeImobiliarias(imobiliaria);
+
+        const imoveis = await Imovel.findAll({ where: { chave_condominio } });
+
+        for (let imovel of imoveis) {
+          await imovel.removeImobiliarias(imobiliaria);
+        }
 
         return res.status(200).send();
     } catch (err) {

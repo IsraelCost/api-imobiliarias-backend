@@ -6,17 +6,10 @@ module.exports = {
     try {
       const { chave_condominio } = req.params;
 
-      const { imovelId } = req.query;
-
       if (!await Condominio.findOne({ where: { chave_condominio } })) {
         const error = new Error("Make sure all parameters are correct");
         error.status = 400;
         throw error;
-      }
-
-      if (imovelId) {
-        const imovel = await Imovel.findByPk(imovelId, { include: { association: 'imobiliarias', through: { attributes: [] } } });
-        return res.json(imovel);
       }
 
       const imoveis = await Imovel.findAll({ where: { chave_condominio } });
@@ -144,5 +137,5 @@ module.exports = {
     } catch (err) {
       next(err);
     }
-  },
+  }
 };
