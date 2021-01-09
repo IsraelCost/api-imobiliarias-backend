@@ -2,6 +2,15 @@ const Imobiliaria = require("../models/Imobiliaria");
 const Condominio = require("../models/Condominio");
 
 module.exports = {
+  async getAll(req, res, next) {
+    try {
+      const imobiliarias = await Imobiliaria.findAll();
+      return res.json(imobiliarias);
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async index(req, res, next) {
     try {
       const { chave_condominio } = req.params;

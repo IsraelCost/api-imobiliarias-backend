@@ -30,6 +30,7 @@ routes.put('/condominios/:chave_condominio/imagens/:id', ImagesController.update
 routes.delete('/condominios/:chave_condominio/imagens/:id', ImagesController.delete);
 
 // Imobiliárias
+routes.get('/imobiliarias', ImobiliariasController.getAll);
 routes.get('/condominios/:chave_condominio/imobiliarias', ImobiliariasController.index);
 routes.post('/condominios/:chave_condominio/imobiliarias', ImobiliariasController.create);
 routes.put('/condominios/:chave_condominio/imobiliarias/:chave_imobiliaria', ImobiliariasController.update);
