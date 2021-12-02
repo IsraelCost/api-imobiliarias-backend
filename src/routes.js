@@ -1,57 +1,26 @@
 const express = require('express');
+
 const routes = express.Router();
-const ImagesController = require('./controllers/ImageController');
-const ImobiliariasController = require('./controllers/ImobiliariaController');
-const ImoveisController = require('./controllers/ImovelController');
-const AdministradoresController = require('./controllers/AdministratorController');
-const CondominioController = require('./controllers/CondominioController');
-const Imagens_ImovelController = require('./controllers/Imagens_ImovelController');
-const Imobi_ImovelController = require('./controllers/Imobi_ImovelController');
 
-const authMiddleware = require('./middlewares/auth');
+const userController = require('./controllers/UserController');
+const callController = require('./controllers/CallController');
 
-// Administradores
-routes.get('/administradores', AdministradoresController.index);
-routes.post('/administradores', AdministradoresController.create);
-routes.post('/administradores/authenticate', AdministradoresController.auth);
-routes.delete('/administradores/:id', AdministradoresController.delete);
+// ROTAS PARA OS USUÁRIOS //
+routes.get('/users', userController.get);
+routes.get('/users/:id', userController.getById);
+routes.post('/users', userController.store);
+routes.post('/users/authenticate', userController.authenticate);
+routes.put('/users/:id', userController.update);
+routes.delete('/users/:id', userController.delete);
 
-routes.use(authMiddleware);
+// ROTAS PARA OS CHAMADOS //
+routes.get('/calls', callController.get);
+routes.get('/calls/:id', callController.getById);
+routes.post('/calls', callController.store);
+routes.put('/calls/:id', callController.update);
+routes.delete('/calls/:id', callController.delete);
 
-// Condomínios
-routes.get('/condominios', CondominioController.index);
-routes.post('/condominios', CondominioController.create);
-routes.put('/condominios/:chave', CondominioController.update);
-routes.delete('/condominios/:chave', CondominioController.delete);
-
-// Imagens da galeria do condomínio
-routes.get('/condominios/:chave_condominio/imagens', ImagesController.index);
-routes.post('/condominios/:chave_condominio/imagens', ImagesController.create);
-routes.put('/condominios/:chave_condominio/imagens/:id', ImagesController.update);
-routes.delete('/condominios/:chave_condominio/imagens/:id', ImagesController.delete);
-
-// Imobiliárias
-routes.get('/imobiliarias', ImobiliariasController.getDefault);
-routes.get('/condominios/:chave_condominio/imobiliarias', ImobiliariasController.index);
-routes.post('/condominios/:chave_condominio/imobiliarias', ImobiliariasController.create);
-routes.put('/condominios/:chave_condominio/imobiliarias/:chave_imobiliaria', ImobiliariasController.update);
-routes.delete('/condominios/:chave_condominio/imobiliarias/:chave_imobiliaria', ImobiliariasController.delete);
-
-// Imóveis
-routes.get('/condominios/:chave_condominio/imoveis', ImoveisController.index);
-routes.post('/condominios/:chave_condominio/imoveis', ImoveisController.create);
-routes.put('/condominios/:chave_condominio/imoveis/:id', ImoveisController.update);
-routes.delete('/condominios/:chave_condominio/imoveis/:id', ImoveisController.delete);
-
-// Imobiliárias dos imóveis
-routes.get('/condominios/:chave_condominio/imoveis/:id/imobiliarias', Imobi_ImovelController.index);
-routes.post('/condominios/:chave_condominio/imoveis/:id/imobiliarias', Imobi_ImovelController.create);
-routes.delete('/condominios/:chave_condominio/imoveis/:id/imobiliarias/:chave_imobi', Imobi_ImovelController.delete);
-
-// Imagens dos imóveis
-routes.get('/condominios/:chave_condominio/imoveis/:id_imovel/imagens', Imagens_ImovelController.index);
-routes.post('/condominios/:chave_condominio/imoveis/:id_imovel/imagens', Imagens_ImovelController.create);
-routes.put('/condominios/:chave_condominio/imoveis/:id_imovel/imagens/:id', Imagens_ImovelController.update);
-routes.delete('/condominios/:chave_condominio/imoveis/:id_imovel/imagens/:id', Imagens_ImovelController.delete);
+routes.get('/calls/sent/user/:user_id', callController.getSent);
+routes.get('/calls/received/user/:user_id', callController.getReceived);
 
 module.exports = routes;
